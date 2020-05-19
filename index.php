@@ -1,6 +1,6 @@
 <?php require_once('private/initialize.php'); ?>	
 <?php 
-
+ 
 $preview = false;
 
 if(isset($_GET['preview'])){
