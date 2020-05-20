@@ -19,5 +19,4 @@
         <li><a href="<?php echo url_for('/staff/logout.php'); ?>">Logout</a></li>
       </ul>
     </nav>
-<?php print_r($_SERVER['SCRIPT_NAME']); ?>
 <?php echo display_session_message(); ?>

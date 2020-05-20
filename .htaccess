@@ -1,0 +1,5 @@
+Options +FollowSymlinks
+RewriteEngine on
+#RewriteRule ^(.*)\.htm$ $1.php [NC]
+#RewriteRule ^/([^/]+)/([^/]+)/? /index.php?first-var=$1&second-var=$2 [QSA]
+RewriteRule ^id/([-a-z-0-9]+)*/$ ./index.php?id=$1

@@ -9,6 +9,7 @@ if(isset($_GET['preview'])){
 
 $visible = !$preview;
 
+//Each row from the subjects db table 
 if(isset($_GET['id'])){  
 
 	$page_id = $_GET['id'];

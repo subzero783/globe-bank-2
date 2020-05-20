@@ -8,14 +8,15 @@
 	<ul class="subjects">
 		<?php foreach($nav_subjects as $nav_subject){ ?>
 			<li class="<?php if($nav_subject['id'] == $subject_id){ echo 'selected';}?>">
-				<a href="<?php echo url_for('index.php?subject_id=' . h(u($nav_subject['id']))); ?>">
+				<a href="<?php echo url_for('index.php?subject=' . h(u($nav_subject['id']))); ?>">
 					<?php echo $nav_subject['menu_name'];?>
 				</a>
 				<?php $nav_pages = find_pages_by_subject_id($nav_subject['id'], ['visible' => $visible]);?>
 				<ul class="pages">
 					<?php foreach($nav_pages as $nav_page){ ?>
 						<li class="<?php if($nav_page['id'] == $page_id){ echo 'selected';}?>">
-							<a href="<?php echo url_for('index.php?id=' . h(u($nav_page['id'])));?>">
+							<!-- <a href="<?php //echo url_for('index.php?id=' . h(u($nav_page['id'])));?>"> -->
+              <a href="/id/<?php echo $nav_page['id'] . '/'; ?>">
 								<?php echo $nav_page['menu_name'];?>
 							</a>
 						</li>

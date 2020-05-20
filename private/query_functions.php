@@ -290,14 +290,17 @@ function get_all_subjects_order_by_position($options=[]){
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = "SELECT * FROM subjects ";
+    $query = "SELECT * FROM subjects ";
+    
 		if($visible){
 			$query .= "WHERE visible = true ";
 		}
-		$query .= "ORDER BY position ASC";
+    $query .= "ORDER BY position ASC";
+    
 		$stmt = $db->prepare($query);
 		$stmt->execute();
-		$errorInfo = $db->errorInfo();
+    $errorInfo = $db->errorInfo();
+    
 		if(isset($errorInfo[2])){
 			$error = $errorInfo[2];
 		}
