@@ -84,14 +84,14 @@ a:hover {
   text-decoration: underline
 }
 
-ul.subjects {
+ul.pages {
   margin-top: 20px;
   margin-left: 20px;
   padding: 0;
   list-style: none;
 }
 
-ul.subjects > li {
+ul.pages > li {
   margin-bottom: 1em;
 }
 

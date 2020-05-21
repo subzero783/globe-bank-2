@@ -9,41 +9,46 @@ if(isset($_GET['preview'])){
 
 $visible = !$preview;
 
+print_r($_GET['page_slug']);
+
+
 //Each row from the subjects db table 
-if(isset($_GET['id'])){  
+if(isset($_GET['page_slug'])){  
+  
+	$page_slug = $_GET['page_slug'];
+	$page = get_page_by_slug($page_slug, ['visible' => $visible]);
 
-	$page_id = $_GET['id'];
-	$page = get_page_by_id($page_id, ['visible' => $visible]);
+	// if(!$page){
+	// 	redirect_to(url_for('/index.php'));
+	// }
 
-	if(!$page){
-		redirect_to(url_for('/index.php'));
-	}
+	// $subject_id = $page['subject_id'];
+	// $subject = get_subject_by_id($subject_id, ['visible' => $visible]);
 
-	$subject_id = $page['subject_id'];
-	$subject = get_subject_by_id($subject_id, ['visible' => $visible]);
+	// if(!$subject){
+	// 	redirect_to(url_for('/index.php'));
+	// }
 
-	if(!$subject){
-		redirect_to(url_for('/index.php'));
-	}
+}
+// else if(isset($_GET['subject_id'])){    
 
-}else if(isset($_GET['subject_id'])){    
+// 	$subject_id = $_GET['subject_id'];
+// 	$subject = get_subject_by_id($subject_id, ['visible' => $visible]);
 
-	$subject_id = $_GET['subject_id'];
-	$subject = get_subject_by_id($subject_id, ['visible' => $visible]);
+// 	if(!$subject){
+// 		redirect_to(url_for('/index.php'));
+// 	}
 
-	if(!$subject){
-		redirect_to(url_for('/index.php'));
-	}
+// 	$page = get_first_page_by_subject_id_visible_true($subject_id);
 
-	$page = get_first_page_by_subject_id_visible_true($subject_id);
+// 	if(!$page) {
+// 		redirect_to(url_for('/index.php'));
+// 	}
 
-	if(!$page) {
-		redirect_to(url_for('/index.php'));
-	}
-
-	$page_id = $page['id'];
+// 	$page_id = $page['id'];
 	
-}else{
+// }
+else{
 	// nothing selected; show homepage 
 }
 ?>

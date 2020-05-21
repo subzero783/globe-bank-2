@@ -116,13 +116,13 @@ function delete_page_by_id($id){
 	$stmt = null;
 }
 
-function get_page_by_id($id, $options=[]){
+function get_page_by_slug($id, $options=[]){
 	$id = form_input_filter_string($id);
 	$visible = isset($options['visible']) ? $options['visible'] : false;
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = "SELECT * FROM pages WHERE id = ? ";
+		$query = "SELECT * FROM pages WHERE page_slug = ? ";
 		if($visible){
 			$query .= "AND visible = true";
 		}
@@ -167,34 +167,34 @@ function get_first_page_by_subject_id_visible_true($id){
 	$stmt = null; 
 }
 
-function find_pages_by_subject_id($subject_id, $options=[]){
-	$visible = isset($options['visible']) ? $options['visible'] : false;
-	$subject_id = form_input_filter_string($subject_id);
-	try{
-		global $db;
-		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = "SELECT * FROM pages WHERE subject_id = ? ";
-		if($visible){
-			$query .= "AND visible = true ";
-		}
-		$query .= "ORDER BY position ASC ";
-		$stmt = $db->prepare($query);
-		$stmt->bindValue(1, $subject_id);
-		$stmt->execute();
-		$errorInfo = $db->errorInfo();
-		if(isset($errorInfo[2])){
-			$error = $errorInfo[2];
-		}
-	} catch (Exception $e) {
-			$error = $e->getMessage();
-	}
-	if(isset($error)) {
-		echo "<p>$error</p>";
-	} else {
-		return filter_array_stripslashes_fetch_all($stmt->fetchAll(PDO::FETCH_ASSOC));
-	}
-	$stmt = null; 
-}
+// function find_pages_by_subject_id($subject_id, $options=[]){
+// 	$visible = isset($options['visible']) ? $options['visible'] : false;
+// 	$subject_id = form_input_filter_string($subject_id);
+// 	try{
+// 		global $db;
+// 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// 		$query = "SELECT * FROM pages WHERE subject_id = ? ";
+// 		if($visible){
+// 			$query .= "AND visible = true ";
+// 		}
+// 		$query .= "ORDER BY position ASC ";
+// 		$stmt = $db->prepare($query);
+// 		$stmt->bindValue(1, $subject_id);
+// 		$stmt->execute();
+// 		$errorInfo = $db->errorInfo();
+// 		if(isset($errorInfo[2])){
+// 			$error = $errorInfo[2];
+// 		}
+// 	} catch (Exception $e) {
+// 			$error = $e->getMessage();
+// 	}
+// 	if(isset($error)) {
+// 		echo "<p>$error</p>";
+// 	} else {
+// 		return filter_array_stripslashes_fetch_all($stmt->fetchAll(PDO::FETCH_ASSOC));
+// 	}
+// 	$stmt = null; 
+// }
 
 function count_pages_by_subject_id($subject_id, $options=[]){
 	$visible = isset($options['visible']) ? $options['visible'] : false;
@@ -227,7 +227,7 @@ function count_pages_by_subject_id($subject_id, $options=[]){
 
 //Subjects
 
-function edit_subject($subject){
+function edit_bid($subject){
 	$errorsArray = validate_subject($subject);
 	$filSubject = filter_array_data($subject);
 	$subjectArray = [];
@@ -235,7 +235,7 @@ function edit_subject($subject){
 		try{
 			global $db;
 			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$stmt = $db->prepare("UPDATE subjects SET menu_name = ?, position = ?, visible = ? WHERE id = ? LIMIT 1");
+			$stmt = $db->prepare("UPDATE bids SET menu_name = ?, position = ?, visible = ? WHERE id = ? LIMIT 1");
 			$stmt->bindValue(1, $filSubject['menu_name']);
 			$stmt->bindValue(2, $filSubject['position']);
 			$stmt->bindValue(3, $filSubject['visible']);
@@ -261,12 +261,12 @@ function edit_subject($subject){
 	}
 }
 
- function delete_subject_with_id($id){
+ function delete_bid_with_id($id){
 	$id = form_input_filter_string($id);
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$stmt = $db->prepare("DELETE FROM subjects WHERE id = ? LIMIT 1");
+		$stmt = $db->prepare("DELETE FROM bid WHERE id = ? LIMIT 1");
 		$stmt->bindValue(1, $id);
 		$stmt->execute();
 		$errorInfo = $db->errorInfo();
@@ -284,13 +284,13 @@ function edit_subject($subject){
 	$stmt = null;
 }
 
-function get_all_subjects_order_by_position($options=[]){
+function get_all_pages_order_by_position($options=[]){
 	$visible = isset($options['visible']) ? $options['visible'] : false;
 	//var_dump($visible);
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = "SELECT * FROM subjects ";
+    $query = "SELECT * FROM pages ";
     
 		if($visible){
 			$query .= "WHERE visible = true ";
@@ -316,13 +316,45 @@ function get_all_subjects_order_by_position($options=[]){
 	$stmt = null;
 }
 
-function get_subject_by_id($id, $options=[]){
+function get_all_pages($options=[]){
+	$visible = isset($options['visible']) ? $options['visible'] : false;
+	//var_dump($visible);
+	try{
+		global $db;
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT * FROM pages ";
+    
+		if($visible){
+			$query .= "WHERE visible = true ";
+		}
+    $query .= "ORDER BY position ASC";
+    
+		$stmt = $db->prepare($query);
+		$stmt->execute();
+    $errorInfo = $db->errorInfo();
+    
+		if(isset($errorInfo[2])){
+			$error = $errorInfo[2];
+		}
+	}catch(Exception $e) {
+		$error = $e->getMessage();
+	}
+	if(isset($error)) {
+		echo "<p>$error</p>";
+	}else{
+		$array = filter_array_stripslashes_fetch_all($stmt->fetchAll(PDO::FETCH_ASSOC));
+		return $array;
+	}
+	$stmt = null;
+}
+
+function get_bids_by_id($id, $options=[]){
 	$id = form_input_filter_string($id);
 	$visible = isset($options['visible']) ? $options['visible'] : false;
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = "SELECT * FROM subjects WHERE id = ? ";
+		$query = "SELECT * FROM bids WHERE id = ? ";
 		if($visible){
 			$query .= "AND visible = true";
 		}
@@ -344,7 +376,7 @@ function get_subject_by_id($id, $options=[]){
 	$stmt = null;
 }
 
-function create_new_subject($subject){
+function create_new_bid($subject){
 	$errorsArray = validate_subject($subject);
 	$filSubject = filter_array_data($subject);
 	$subjectArray = [];
@@ -352,7 +384,7 @@ function create_new_subject($subject){
 		try{
 			global $db;
 			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$stmt = $db->prepare("INSERT INTO subjects (menu_name, position, visible) VALUES (?, ?, ?)");
+			$stmt = $db->prepare("INSERT INTO bids (menu_name, position, visible) VALUES (?, ?, ?)");
 			$stmt->bindValue(1, $filSubject['menu_name']);
 			$stmt->bindValue(2, $filSubject['position']);
 			$stmt->bindValue(3, $filSubject['visible']);
@@ -378,11 +410,11 @@ function create_new_subject($subject){
 	}
 }
 
-function count_rows_subects_table(){
+function count_rows_bids_table(){
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$stmt = $db->prepare("SELECT position FROM subjects");
+		$stmt = $db->prepare("SELECT position FROM bids");
 		$stmt->execute();
 		$errorInfo = $db->errorInfo();
 		if(isset($errorInfo[2])){
@@ -399,11 +431,11 @@ function count_rows_subects_table(){
 	$stmt = null;
 }
 
-function get_all_subjects_count(){
+function get_all_bids_count(){
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$stmt = $db->prepare("SELECT * FROM subjects");
+		$stmt = $db->prepare("SELECT * FROM bids");
 		$stmt->execute();
 		$errorInfo = $db->errorInfo();
 		if(isset($errorInfo[2])){
