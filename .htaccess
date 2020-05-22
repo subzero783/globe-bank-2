@@ -2,12 +2,8 @@ Options +FollowSymlinks
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
 #RewriteRule ^(.*)\.htm$ $1.php [NC]
-
 RewriteRule ^([^/]+)/?$ /index.php?page_slug=$1 [NC,L,QSA]
 #RewriteRule ^bids/([^/]+)/?$ /index.php?posts_id=$1 [NC,L,QSA]
-RewriteRule ^([^/]+)/([^/]+)/? /index.php?page_slug=$1&posts_id=$2 [NC,L,QSA]
-
-
+RewriteRule ^([^/]+)/([^/]+)/?$ /index.php?page_slug=$1&posts_id=$2 [NC,L,QSA]
 ErrorDocument 404 /404.php
