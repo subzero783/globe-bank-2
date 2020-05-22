@@ -139,7 +139,7 @@ function get_page_by_slug($id, $options=[]){
 	if(isset($error)) {
 		echo "<p>$error</p>";
 	} else {
-		return filter_array_stripslashes_fetch($stmt->fetch(PDO::FETCH_ASSOC));
+		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 	$stmt = null; 
 }

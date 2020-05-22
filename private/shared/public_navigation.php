@@ -4,15 +4,17 @@
   $visible = isset($visible) ? $visible : true;
 ?>
 <nav>
-  <?php $pages = get_all_pages(['visible' => $visible]);
-  print_r($_GET['page_slug']);
-  print_r($_GET['posts_id']);
+  <?php 
+  $all_pages = get_all_pages(['visible' => $visible]);
+  // echo (!empty($_GET['page_slug']) && isset($_GET['page_slug'])) ? $_GET['page_slug'] : '';
+  // echo "<br>";
+  // echo (!empty($_GET['posts_id']) && isset($_GET['posts_id'])) ? $_GET['posts_id'] : '';
   ?>
 	<ul class="pages">
-		<?php foreach($pages as $page){ ?>
-			<li class="<?php if($page['page_slug'] == $page_slug){ echo 'selected';}?>">
-				<a href="/<?php echo h(u($page['page_slug'])); ?>/">
-					<?php echo $page['page_name'];?>
+		<?php foreach($all_pages as $the_page){ ?>
+			<li class="<?php if($the_page['page_slug'] == $page_slug){ echo 'selected';}?>">
+				<a href="/<?php echo h(u($the_page['page_slug'])); ?>/">
+					<?php echo $the_page['page_name'];?>
 				</a>
 			</li>
 		<?php } ?>
