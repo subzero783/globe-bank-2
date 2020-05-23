@@ -17,17 +17,6 @@ if( isset($_GET['page_slug']) ){
   $page = get_page_by_slug($page_slug, ['visible' => $visible]);
   
 
-	// if(!$page){
-	// 	redirect_to(url_for('/index.php'));
-	// }
-
-	// $subject_id = $page['subject_id'];
-	// $subject = get_subject_by_id($subject_id, ['visible' => $visible]);
-
-	// if(!$subject){
-	// 	redirect_to(url_for('/index.php'));
-	// }
-
 }else{
   // nothing selected; show homepage 
 }
