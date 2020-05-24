@@ -18,5 +18,10 @@
 				</a>
 			</li>
 		<?php } ?>
+		<li>
+			<a href="/login/">
+				Login
+			</a>
+			</li>
 	</ul>
 </nav>

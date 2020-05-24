@@ -6,5 +6,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteRule ^(.*)\.htm$ $1.php [NC] 
 
 RewriteRule ^bids/([^/]+)/?$ /bids/index.php?id=$1 [NC,L,QSA]
-#RewriteRule ^staff/([^/]+)/?$ /staff/index.php?id=$1 [NC,L,QSA]
+#RewriteRule ^profile/([^/]+)/?$ /profile/index.php?id=$1 [NC,L,QSA]
+#RewriteRule ^dashboard/([^/]+)/?$ /dashboard/index.php?id=$1 [NC,L,QSA]
 ErrorDocument 404 /404.php

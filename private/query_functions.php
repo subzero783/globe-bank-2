@@ -501,12 +501,12 @@ function find_admin_by_id($id){
 	$stmt = null;
 }
 
-function find_admin_by_username($username){
+function find_user_by_username($username){
 	$username = form_input_filter_string($username);
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = "SELECT * FROM admins WHERE username = ? LIMIT 1";
+		$query = "SELECT * FROM users WHERE username = ? LIMIT 1";
 		$stmt = $db->prepare($query);
 		$stmt->bindValue(1, $username);
 		$stmt->execute();

@@ -6,7 +6,7 @@
   <head>
     <title>GBI - <?php echo h($page_title); ?></title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" media="all" href="<?php echo url_for('/stylesheets/staff.css'); ?>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo url_for('/assets/stylesheets/staff.css'); ?>" />
   </head>
   <body>
     <header>
@@ -15,8 +15,8 @@
     <nav>
       <ul>
         <li>User: <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?></li>
-        <li><a href="<?php echo url_for('/staff/index.php'); ?>">Menu</a></li>
-        <li><a href="<?php echo url_for('/staff/logout.php'); ?>">Logout</a></li>
+        <li><a href="<?php echo url_for('/login/index.php'); ?>">Menu</a></li>
+        <li><a href="<?php echo url_for('/login/logout.php'); ?>">Logout</a></li>
       </ul>
     </nav>
 <?php echo display_session_message(); ?>
