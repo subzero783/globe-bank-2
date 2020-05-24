@@ -476,12 +476,12 @@ function find_all_admins(){
 	$stmt = null;
 }
 
-function find_admin_by_id($id){
+function find_user_by_id($id){
 	$id = form_input_filter_string($id);
 	try{
 		global $db;
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = "SELECT * FROM admins WHERE id = ? LIMIT 1";
+		$query = "SELECT * FROM users WHERE id = ? LIMIT 1";
 		$stmt = $db->prepare($query);
 		$stmt->bindValue(1, $id);
 		$stmt->execute();

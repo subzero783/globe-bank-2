@@ -1,6 +1,6 @@
 <?php
 require_once('../private/initialize.php');
-$errors = log_in_verification($_POST, '/login/index.php');
+$errors = log_in_verification($_POST, '/dashboard/');
 ?>
 <?php $page_title = 'Log in'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>

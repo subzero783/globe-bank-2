@@ -1,6 +1,10 @@
 <?php require_once('../private/initialize.php'); ?>
 <?php //unset($_SESSION['admin_id']);?>
-<?php require_login('/login/login.php'); ?>
+<?php require_login('/login/login.php'); 
+// Check if user is an admin by checking if their level is 1
+  // If their level is 1 rediect to pages/
+  // Else redirect to dashboard/
+?>
 <?php $page_title = 'Staff Menu'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 <div id="content">

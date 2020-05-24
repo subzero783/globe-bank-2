@@ -34,12 +34,20 @@
 
   // Call require_login() at the top of any page which needs to
   // require a valid login before granting acccess to the page.
-  function require_login($path) {
-    if(!is_logged_in()) {
+  function require_login($path, $requires_admin = false) {
+    if(!is_logged_in()){
       // redirect_to(url_for('/staff/login.php'));
       redirect_to(url_for($path));
-    } else {
-      // Do nothing, let the rest of the page proceed
+    } else if(is_logged_in() && $requires_admin == true) {
+
+      $user = find_user_by_id($_SESSION['user_id']);
+
+      if($user['level'] !== '1'){
+        redirect_to(url_for('/dashboard/'));
+      }
+      
+    }else{
+
     }
   }
 
