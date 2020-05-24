@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 18, 2020 at 07:57 PM
+-- Generation Time: May 24, 2020 at 09:19 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admins` (
   `id` int(11) NOT NULL,
+  `level` int(11) NOT NULL DEFAULT '1',
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -41,8 +42,33 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `username`, `hashed_password`) VALUES
-(1, 'Gustavo', 'Amezcua', 'contact@hiperstudio.org', 'gus893', '$1$0ajkzgpV$ab5f/q4/fmGrUq8wRqIIz1');
+INSERT INTO `admins` (`id`, `level`, `first_name`, `last_name`, `email`, `username`, `hashed_password`) VALUES
+(1, 1, 'Gustavo', 'Amezcua', 'contact@hiperstudio.org', 'gus893', '$1$0ajkzgpV$ab5f/q4/fmGrUq8wRqIIz1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bids`
+--
+
+CREATE TABLE `bids` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `bid_name` varchar(255) DEFAULT NULL,
+  `sell` tinyint(1) NOT NULL DEFAULT '1',
+  `visible` tinyint(1) DEFAULT NULL,
+  `offer_price` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bids`
+--
+
+INSERT INTO `bids` (`id`, `user_id`, `bid_name`, `sell`, `visible`, `offer_price`) VALUES
+(1, 0, 'RFP - Integrated Electronic Security System', 1, 0, ''),
+(2, 0, 'BASE OPERATIONS SUPPORT SERVICES AT MARINE CORPS BASE CAMP PENDLETON, CALIFORNIA', 1, 0, ''),
+(18, 0, 'QS22 -- Mobile MRI Service and PET/CT Atlanta VA Medical Center', 1, 0, ''),
+(28, 0, 'FY20 Repair Taxiway Foxtrot and Golf at Mountain Home AFB, ID', 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -52,46 +78,46 @@ INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `username`, `has
 
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL,
-  `subject_id` int(11) DEFAULT NULL,
-  `menu_name` varchar(255) DEFAULT NULL,
-  `position` int(3) DEFAULT NULL,
-  `visible` tinyint(1) DEFAULT NULL,
-  `content` text
+  `page_name` varchar(255) DEFAULT NULL,
+  `page_slug` varchar(255) NOT NULL,
+  `position` int(11) NOT NULL,
+  `title` text,
+  `visible` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
 --
 
-INSERT INTO `pages` (`id`, `subject_id`, `menu_name`, `position`, `visible`, `content`) VALUES
-(1, 1, 'Globe Bank', 1, 1, '<h1>This is the globa bank page.</h1>'),
-(5, 2, 'Banking', 1, 1, NULL),
-(6, 2, 'Credit Cards', 2, 1, NULL),
-(10, 1, 'Menu\\\'s', 1, 1, 'w'),
-(11, 1, 'History\\\'s', 1, 1, 'Content');
+INSERT INTO `pages` (`id`, `page_name`, `page_slug`, `position`, `title`, `visible`) VALUES
+(1, 'Bids', 'bids', 1, '<h1>This is the bids page</h1>', 1),
+(5, 'Contact', 'contact', 2, '<h1>This is the contact page</h1>', 1),
+(6, 'About', 'about', 4, '<h1>This is the about page</h1>', 1),
+(10, 'Profile', 'profile', 3, '<h1>This is the profile page</h1>', 1),
+(11, NULL, '', 0, 'Content', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subjects`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `subjects` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `menu_name` varchar(255) DEFAULT NULL,
-  `position` int(3) DEFAULT NULL,
-  `visible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `level` int(11) NOT NULL DEFAULT '1',
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `hashed_password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `subjects`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `subjects` (`id`, `menu_name`, `position`, `visible`) VALUES
-(1, 'About', 1, 1),
-(2, 'Consumer', 3, 1),
-(18, 'Inventory', 4, 1),
-(28, 'History\\\'s', 4, 1);
+INSERT INTO `users` (`id`, `level`, `first_name`, `last_name`, `email`, `username`, `hashed_password`) VALUES
+(1, 1, 'Gustavo', 'Amezcua', 'contact@hiperstudio.org', 'gus893', '$1$0ajkzgpV$ab5f/q4/fmGrUq8wRqIIz1');
 
 --
 -- Indexes for dumped tables
@@ -105,17 +131,23 @@ ALTER TABLE `admins`
   ADD KEY `index_username` (`username`);
 
 --
+-- Indexes for table `bids`
+--
+ALTER TABLE `bids`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pages`
 --
 ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_subject_id` (`subject_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `subjects`
+-- Indexes for table `users`
 --
-ALTER TABLE `subjects`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -128,16 +160,22 @@ ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `bids`
+--
+ALTER TABLE `bids`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `subjects`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
