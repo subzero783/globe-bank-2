@@ -4130,9 +4130,9 @@ a.fn.owlCarousel.Constructor.Plugins.Animate=e}(window.Zepto||window.jQuery,wind
     [18] preloader
     -------------------------------------------------------------------*/
     //Lazy loader
-    $(function() {
-        $('.lazy').lazy();
-    });
+    // $(function() {
+    //     $('.lazy').lazy();
+    // });
 
     $(window).on('load', function () {
         

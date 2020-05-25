@@ -8,3 +8,4 @@ if(!empty($_GET['id']) && isset($_GET['id'])){
 }
 
 ?>
+<h1>Profile</h1>

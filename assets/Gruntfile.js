@@ -26,7 +26,7 @@ module.exports = function(grunt) {
             js: {
                 src: [
                     'js/jquery-3.2.1.min.js'
-                    ,'jquery.lazy-master/jquery.lazy.min.js'
+                    //,'jquery.lazy-master/jquery.lazy.min.js'
                     ,'js/bootstrap.min.js'
                     ,'js/jquery-mixtub.js'
                     ,'js/jquery.magnific-popup.min.js'
