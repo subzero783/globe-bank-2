@@ -1,19 +1,26 @@
 <?php
 
 function url_for($script_path) {
-  // add the leading '/' if not present
-  if($script_path[0] != '/') {
-    $script_path = "/" . $script_path;
-  }
   
   $script_name = $_SERVER['SCRIPT_NAME'];
   if(strpos($script_name, '/qasrep-dev/') !== false){
     //staging
-    return '/qasrep-dev/' . $script_path;
+    // add the leading '/' if not present
+    if($script_path[0] != '/') {
+      return '/qasrep-dev/' . $script_path;
+    }else{
+      return '/qasrep-dev' . $script_path;
+    }
   }else if(strpos($script_name, '/qasrep-staging/') !== false){
-    //dev
-    return '/qasrep-staging/' . $script_path;
+    if($script_path[0] != '/') {
+      return '/qasrep-staging/' . $script_path;
+    }else{
+      return '/qasrep-staging' . $script_path;
+    }
   }else{
+    if($script_path[0] != '/') {
+      $script_path = "/" . $script_path;
+    }
     return $script_path;
   }
 }

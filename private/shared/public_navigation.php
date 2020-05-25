@@ -13,13 +13,13 @@
 	<ul class="pages">
 		<?php foreach($all_pages as $the_page){ ?>
 			<li class="<?php if($the_page['page_slug'] == $page_slug){ echo 'selected';}?>">
-				<a href="/<?php echo h(u($the_page['page_slug'])); ?>/">
+				<a href="<?php echo url_for(h(u($the_page['page_slug']))); ?>">
 					<?php echo $the_page['page_name'];?>
 				</a>
 			</li>
 		<?php } ?>
 		<li>
-			<a href="/login/">
+			<a href="<?php echo url_for('/login/');?>">
 				Login
 			</a>
 			</li>
