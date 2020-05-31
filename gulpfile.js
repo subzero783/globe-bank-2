@@ -54,23 +54,10 @@ function watch() {
   });
   gulp.watch('assets/scss/**/*.scss', style, cacheBustTask);
   gulp.watch('assets/js/**/*.js', minify_js, cacheBustTask);
-  // gulp.watch('./**/*.php').on('change', cacheBustTask);
-  gulp.watch('./**/*.php').on('change',browserSync.reload);
+  gulp.watch('./**/*.php').on('change',browserSync.reload, cacheBustTask);
 }
 
-// function watch(){
-//   watch(
-//     [
-//       'assets/scss/**/*.scss',
-//       'assets/js/**/*.js'
-//     ]
-//   )
-// }
 
-// exports.default = series(
-//   parallel(style, minify_js),
-//   watch
-// );
 
 exports.style = style;
 exports.minify_js = minify_js;
