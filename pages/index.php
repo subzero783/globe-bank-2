@@ -5,4 +5,4 @@ require_login('/login/login.php', true);
 echo $_SESSION['user_id'];
 
 ?>
-<h1>Pages</h1>
+<h1>Pages</h1> 

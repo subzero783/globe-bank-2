@@ -1,7 +1,7 @@
 <?php require_once('private/initialize.php'); ?>	
-<?php 
+<?php  
  
-$preview = false; 
+$preview = false;  
 
 if(isset($_GET['preview'])){
 	$preview = $_GET['preview'] == 'true' && is_logged_in() ? true : false;

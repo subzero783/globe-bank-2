@@ -3,8 +3,7 @@
   <head>
     <title>QASREP <?php if(isset($page_title)) { echo '- ' . h($page_title); } ?><?php if(isset($preview) && $preview) { echo ' [PREVIEW]'; } ?></title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" media="all" href="<?php echo url_for('/assets/stylesheets/public.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo url_for('/assets/build/main.min.css');?>"/>
+    <link rel="stylesheet" href="<?php echo url_for('/assets/dist/css/style.css?cb=123');?>"/>
   </head>
   <body>
     <header>
