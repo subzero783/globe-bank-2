@@ -13,10 +13,28 @@ const rename = require('gulp-rename');
 
 //compile scss into css
 function style() {
-  return gulp.src('assets/scss/**/*.scss')
+  return gulp.src(
+    [
+      // theme files
+      'assets/vendor/bootstrap/css/bootstrap.min.css',
+      'assets/vendor/icofont/icofont.min.css',
+      'assets/vendor/remixicon/remixicon.css',
+      'assets/vendor/boxicons/css/boxicons.min.css',
+      'assets/vendor/owl.carousel/assets/owl.carousel.min.css',
+      'assets/vendor/venobox/venobox.css',
+      'assets/vendor/aos/aos.css',
+      'assets/vendor/css/style.css',
+      // my file
+      'assets/scss/**/*.scss',
+    ]
+  )
+  .pipe(concat('style.css'))
   .pipe(sourcemaps.init())
   .pipe(sass().on('error',sass.logError))
   .pipe(postcss([ autoprefixer(), cssnano()]))
+  .pipe(rename({
+    suffix: '.min'
+  }))
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest('assets/dist/css'))
   .pipe(browserSync.stream());
@@ -26,7 +44,19 @@ function minify_js(){
   return gulp.src(
     [
       'node_modules/jquery/dist/jquery.min.js',
-      'node_modules/bootstrap/dist/js/bootstrap.min.js',
+
+      // theme files
+      'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
+      'assets/vendor/jquery.easing/jquery.easing.min.js',
+      'assets/vendor/php-email-form/validate.js',
+      'assets/vendor/waypoints/jquery.waypoints.min.js',
+      'assets/vendor/counterup/counterup.min.js',
+      'assets/vendor/owl.carousel/owl.carousel.min.js',
+      'assets/vendor/isotope-layout/isotope.pkgd.min.js',
+      'assets/vendor/venobox/venobox.min.js',
+      'assets/vendor/aos/aos.js',
+      'assets/vendor/js/main.js',
+      // my file
       'assets/js/**/*.js'
     ]
   )
@@ -53,6 +83,7 @@ function watch() {
     proxy: "http://globe-bank-2.localhost"
   });
   gulp.watch('assets/scss/**/*.scss', style, cacheBustTask);
+  gulp.watch('assets/vendor/**/*.css', style, cacheBustTask);
   gulp.watch('assets/js/**/*.js', minify_js, cacheBustTask);
   gulp.watch('./**/*.php').on('change',browserSync.reload, cacheBustTask);
 }
